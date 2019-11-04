@@ -15,17 +15,18 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    int num=0;
+    int result=0;
+    int num1;
+    int num2;
     QString line;
-    QPushButton *b=new QPushButton(this);
-
+    QString label;
     ~MainWindow();
 
 private:
     Ui::MainWindow *ui;
     int o=0;
 private slots:
-    void add();
+    void add(int a);
     void sub();
     void mul();
     void dev();

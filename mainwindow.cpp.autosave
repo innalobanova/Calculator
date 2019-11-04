@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->B7,SIGNAL(clicked(QString)),this,SLOT(digit(QString)));
     connect(ui->B8,SIGNAL(clicked(QString)),this,SLOT(digit(QString)));
     connect(ui->B9,SIGNAL(clicked(QString)),this,SLOT(digit(QString)));
-    connect(ui->BPLUS,SIGNAL(clicked(bool)),this, SLOT(add(int 0)));
+    connect(ui->BPLUS,SIGNAL(clicked(bool)),this, SLOT(add()));
     connect(ui->BDEVIS,SIGNAL(clicked(bool)),this, SLOT(dev()));
     connect(ui->BMULT,SIGNAL(clicked(bool)),this, SLOT(mul()));
     connect(ui->BMINUS,SIGNAL(clicked(bool)),this, SLOT(sub()));
@@ -34,29 +34,15 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::add(int a)
-{if (a==0)
-  { num1 = line.toInt();
- label.append(line);
- label.append("+");
- ui->label->setText(label);
+void MainWindow::add()
+{num=line.toInt();
 line.clear();
 ui->lineEdit->setText(line);
-o=1;}
-  else {num2 = line.toInt();
-        label.append(line);
-        ui->label->setText(label);
-       line.clear();
-       ui->lineEdit->setText(line);
-       result=num1+num2;
-       o=0;}
+o=1;
 }
 
 void MainWindow::sub()
-{//num-=line.toInt();
- label.append(line);
- label.append("-");
- ui->label->setText(label);
+{num-=line.toInt();
   line.clear();
  ui->lineEdit->setText(line);
   o=2;
@@ -65,14 +51,14 @@ void MainWindow::sub()
 
 void MainWindow::mul()
 {
-//    num*=line.toInt();
+    num*=line.toInt();
     line.clear();
     ui->lineEdit->setText(line);
     o=3;
 }
 
 void MainWindow::dev()
-{//num/=line.toInt();
+{num/=line.toInt();
     line.clear();
     ui->lineEdit->setText(line);
     o=4;
@@ -86,16 +72,13 @@ void MainWindow::point()
 
 void MainWindow::equal()
 {switch (o) {
-    case 1: {add(1);break;}
+    case 1: {add();break;}
     case 2: {sub();break;}
     case 3: {mul();break;}
     case 4: {dev();break;}
     default: { break;}
     }
-    label.append("=");
-    label.append(QString("%1").arg(result));
-    ui->label->setText(label);
-    //ui->lineEdit->setText();
+    ui->lineEdit->setText(QString("%1").arg(num));
     line.clear();
 
 
